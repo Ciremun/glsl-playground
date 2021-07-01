@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>glsl-playground</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding: 10px;
+        }
+
+        .alert {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 400px;
+            overflow-wrap: break-word;
+            border-radius: 5px;
+            padding: 10px 15px;
+            background-color: #1c73a5;
+            z-index: 4;
+            margin: 0 50%;
+            transform: translateX(-50%);
+            font-family: 'Ubuntu Mono', monospace;
+            font-weight: bold;
+            color: #f3f3f3;
+            cursor: default;
+            animation: alert 2s forwards;
+        }
+
+        .alert_content {
+            position: relative;
+        }
+
+        @keyframes alert {
+            from {transform: translate(-50%,-100px)}
+            10% {transform: translate(-50%,35px)}
+            12% {transform: translate(-50%,37px)}
+            16% {transform: translate(-50%,35px)}
+            80% {transform: translate(-50%,35px)}
+            85% {transform: translate(-50%,40px)}
+            to {transform: translate(-50%,-100px)}
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <canvas id="c" style="width: 60vw; height: 60vh;"></canvas>
+        <textarea id="i" style="width: 40vw; height: 40vh;"></textarea>
+        <script src="index.js"></script>
+    </div>
+</body>
+
+</html>
