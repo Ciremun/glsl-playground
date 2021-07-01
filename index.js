@@ -1,3 +1,4 @@
+"use strict";
 window.onload = function () {
     function showAlert(message) {
         var alerts = document.getElementsByClassName('alert');
@@ -21,7 +22,7 @@ window.onload = function () {
     if (textarea === null) {
         error("Textarea element was not found");
     }
-    textarea.value = "#version 300 es\nprecision highp float;\n\nuniform float u_time;\nout vec4 outColor;\n\nvoid main() {\n    outColor = vec4(abs(sin(u_time)), abs(sin(u_time)), abs(sin(u_time)), 1.0);\n}\n";
+    textarea.value = "#version 300 es\nprecision highp float;\n\nuniform float u_time;\nout vec4 outColor;\n\nvoid main() {\n    outColor = vec4(0.0, sin(gl_FragCoord.x / gl_FragCoord.z * gl_FragCoord.y + u_time * 10.0), 0.0, 1.0);\n}\n";
     var canvas = document.getElementById("c");
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
@@ -58,7 +59,7 @@ window.onload = function () {
         console.log(gl.getProgramInfoLog(program));
         gl.deleteProgram(program);
     }
-    var vertexShaderSource = "#version 300 es\n    in vec4 a_position;\n    \n    void main() {\n      gl_Position = a_position;\n    }\n    ";
+    var vertexShaderSource = "#version 300 es\nin vec4 a_position;\n\nvoid main() {\n  gl_Position = a_position;\n}\n";
     var fragmentShaderSource = textarea.value;
     var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
     var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
@@ -76,7 +77,7 @@ window.onload = function () {
     var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
     var positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0, 0, 0.5, 0.7, 0,]), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1.0, -1.0, -1.0, 1.0, 1.0, 0]), gl.STATIC_DRAW);
     var vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
     gl.enableVertexAttribArray(positionAttributeLocation);

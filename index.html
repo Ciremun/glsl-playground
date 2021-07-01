@@ -45,13 +45,43 @@
             85% {transform: translate(-50%,40px)}
             to {transform: translate(-50%,-100px)}
         }
+
+        .flex {
+            display: flex;
+        }
+
+        #c {
+            width: 60vw;
+            height: 95vh;
+            object-fit: contain;
+        }
+
+        #i {
+            width: 40vw;
+            height: 95vh;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .flex {
+                display: block;
+            }
+            .alert {
+                font-size: 12pt;
+            }
+            #c {
+                width: 95vw;
+            }
+            #i {
+                width: 95vw;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div style="display: flex;">
-        <canvas id="c" style="width: 60vw; height: 60vh;"></canvas>
-        <textarea id="i" style="width: 40vw; height: 40vh;"></textarea>
+    <div class="flex">
+        <canvas id="c"></canvas>
+        <textarea id="i"></textarea>
         <script src="index.js"></script>
     </div>
 </body>

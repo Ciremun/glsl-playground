@@ -31,7 +31,7 @@ uniform float u_time;
 out vec4 outColor;
 
 void main() {
-    outColor = vec4(abs(sin(u_time)), abs(sin(u_time)), abs(sin(u_time)), 1.0);
+    outColor = vec4(0.0, sin(gl_FragCoord.x / gl_FragCoord.z * gl_FragCoord.y + u_time * 10.0), 0.0, 1.0);
 }
 `;
 
@@ -76,12 +76,12 @@ void main() {
     }
 
     const vertexShaderSource = `#version 300 es
-    in vec4 a_position;
-    
-    void main() {
-      gl_Position = a_position;
-    }
-    `;
+in vec4 a_position;
+
+void main() {
+  gl_Position = a_position;
+}
+`;
 
     const fragmentShaderSource = textarea.value;
 
@@ -104,7 +104,7 @@ void main() {
 
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0, 0, 0.5, 0.7, 0,]), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1.0, -1.0, -1.0, 1.0, 1.0, 0]), gl.STATIC_DRAW);
 
     const vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
