@@ -1,5 +1,6 @@
 "use strict";
 window.onload = function () {
+    var fragmentShaderSourceUpdateDelay = window.screen.width > 768 ? 600 : 1200;
     function showAlert(message) {
         var alerts = document.getElementsByClassName('alert');
         if (alerts.length !== 0)
@@ -110,7 +111,7 @@ window.onload = function () {
             timeLocation = gl.getUniformLocation(program, "u_time");
             positionAttributeLocation = gl.getAttribLocation(program, "a_position");
             gl.useProgram(program);
-        }, 600);
+        }, fragmentShaderSourceUpdateDelay);
     });
     window.requestAnimationFrame(renderLoop);
 };

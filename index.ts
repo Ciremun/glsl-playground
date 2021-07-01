@@ -1,5 +1,7 @@
 window.onload = () => {
 
+    const fragmentShaderSourceUpdateDelay = window.screen.width > 768 ? 600 : 1200;
+
     function showAlert(message: string) {
         let alerts: any = document.getElementsByClassName('alert');
         if (alerts.length !== 0)
@@ -142,7 +144,7 @@ void main() {
             timeLocation = gl.getUniformLocation(program, "u_time");
             positionAttributeLocation = gl.getAttribLocation(program, "a_position");
             gl.useProgram(program);
-        }, 600);
+        }, fragmentShaderSourceUpdateDelay);
     });
 
     window.requestAnimationFrame(renderLoop);
