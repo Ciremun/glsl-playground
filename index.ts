@@ -11,13 +11,13 @@ window.onload = () => {
             inner_div = document.createElement('div');
         outer_div.classList.add('alert');
         inner_div.classList.add('alert_content');
-        inner_div.innerText = `Error: ${message}`;
+        inner_div.innerText = message;
         outer_div.appendChild(inner_div);
         document.body.appendChild(outer_div);
     }
 
     function error(message: string): never {
-        showAlert(message);
+        showAlert(`Error: ${message}`);
         throw new Error(message);
     }
 
