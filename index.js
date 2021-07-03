@@ -23,7 +23,7 @@ window.onload = function () {
     if (textarea === null) {
         error("Textarea element was not found");
     }
-    textarea.value = "#version 300 es\nprecision highp float;\n\nuniform float u_time;\nout vec4 outColor;\n\nvoid main() {\n    outColor = vec4(0.0, sin(gl_FragCoord.x / gl_FragCoord.z * gl_FragCoord.y + u_time * 10.0), 0.0, 1.0);\n}\n";
+    textarea.value = "#version 300 es\nprecision highp float;\n\nuniform float u_time;\nuniform vec2 u_res;\nout vec4 outColor;\n\nvoid main() {\n    outColor = vec4(0.0, sin(gl_FragCoord.x / gl_FragCoord.z * gl_FragCoord.y + u_time * 10.0), 0.0, 1.0);\n}\n";
     var canvas = document.getElementById("c");
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
@@ -75,6 +75,7 @@ window.onload = function () {
         error("program creation failed");
     }
     var timeLocation = gl.getUniformLocation(program, "u_time");
+    var resolutionLocation = gl.getUniformLocation(program, "u_res");
     var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
     var positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -86,7 +87,8 @@ window.onload = function () {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     gl.useProgram(program);
     function renderLoop(timeStamp) {
-        gl.uniform1f(timeLocation, timeStamp / 1000.0);
+        gl.uniform1f(timeLocation, timeStamp * 0.001);
+        gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -109,6 +111,7 @@ window.onload = function () {
                 error("program creation failed");
             }
             timeLocation = gl.getUniformLocation(program, "u_time");
+            resolutionLocation = gl.getUniformLocation(program, "u_res");
             positionAttributeLocation = gl.getAttribLocation(program, "a_position");
             gl.useProgram(program);
         }, fragmentShaderSourceUpdateDelay);

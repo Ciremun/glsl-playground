@@ -30,6 +30,7 @@ window.onload = () => {
 precision highp float;
 
 uniform float u_time;
+uniform vec2 u_res;
 out vec4 outColor;
 
 void main() {
@@ -102,6 +103,7 @@ void main() {
     }
 
     let timeLocation = gl.getUniformLocation(program, "u_time");
+    let resolutionLocation = gl.getUniformLocation(program, "u_res");
     let positionAttributeLocation = gl.getAttribLocation(program, "a_position");
 
     const positionBuffer = gl.createBuffer();
@@ -118,7 +120,8 @@ void main() {
     gl.useProgram(program);
 
     function renderLoop(timeStamp: number) {
-        gl!.uniform1f(timeLocation, timeStamp / 1000.0);
+        gl!.uniform1f(timeLocation, timeStamp * 0.001);
+        gl!.uniform2f(resolutionLocation, gl!.canvas.width, gl!.canvas.height);
         gl!.clearColor(0, 0, 0, 0);
         gl!.clear(gl!.COLOR_BUFFER_BIT);
         gl!.drawArrays(gl!.TRIANGLES, 0, 3);
@@ -142,6 +145,7 @@ void main() {
                 error("program creation failed");
             }
             timeLocation = gl.getUniformLocation(program, "u_time");
+            resolutionLocation = gl.getUniformLocation(program, "u_res");
             positionAttributeLocation = gl.getAttribLocation(program, "a_position");
             gl.useProgram(program);
         }, fragmentShaderSourceUpdateDelay);
