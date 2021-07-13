@@ -84,7 +84,7 @@ window.onload = function () {
     if (vertex_shader_textarea === null) {
         error("vertex shader textarea was not found");
     }
-    vertex_shader_textarea.value = "#version 300 es\nin vec4 a_position;\nin vec2 a_texCoord;\n\nuniform float u_time;\n\nout vec2 v_texCoord;\n\nvoid main() {\n    gl_Position = vec4(sin(a_position.x - 0.5 * u_time), a_position.y - 0.5, a_position.z, 1.0);\n    v_texCoord = a_texCoord;\n}\n";
+    vertex_shader_textarea.value = "#version 300 es\nin vec4 a_position;\nin vec2 a_texCoord;\n\nuniform float u_time;\n\nout vec2 v_texCoord;\n\nfloat sliding_from_left_to_right(float time_interval) {\n    return (mod(u_time, time_interval) - time_interval * .5) * (time_interval *.2);\n}\n\nfloat flipping_directions(float time_interval) {\n    return 1.0 - 2.0 * mod(floor(u_time / time_interval), 2.0);\n}\n\nvoid main() {\n    float time_interval = .5;\n    gl_Position = vec4(a_position.x + sliding_from_left_to_right(time_interval) * flipping_directions(time_interval) - 3.0, a_position.y - sliding_from_left_to_right(time_interval) * flipping_directions(time_interval), a_position.z, 1.0) + 1.0;\n    v_texCoord = a_texCoord;\n}\n";
     var fragment_shader_textarea = document.getElementById("f");
     if (fragment_shader_textarea === null) {
         error("fragment shader textarea was not found");

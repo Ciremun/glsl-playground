@@ -100,8 +100,17 @@ uniform float u_time;
 
 out vec2 v_texCoord;
 
+float sliding_from_left_to_right(float time_interval) {
+    return (mod(u_time, time_interval) - time_interval * .5) * (time_interval *.2);
+}
+
+float flipping_directions(float time_interval) {
+    return 1.0 - 2.0 * mod(floor(u_time / time_interval), 2.0);
+}
+
 void main() {
-    gl_Position = vec4(sin(a_position.x - 0.5 * u_time), a_position.y - 0.5, a_position.z, 1.0);
+    float time_interval = .5;
+    gl_Position = vec4(a_position.x + sliding_from_left_to_right(time_interval) * flipping_directions(time_interval) - 3.0, a_position.y - sliding_from_left_to_right(time_interval) * flipping_directions(time_interval), a_position.z, 1.0) + 1.0;
     v_texCoord = a_texCoord;
 }
 `;
