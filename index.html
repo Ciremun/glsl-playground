@@ -51,14 +51,15 @@
         }
 
         #c {
-            width: 60vw;
+            width: 50vw;
             height: 95vh;
             object-fit: contain;
         }
 
-        #i {
-            width: 40vw;
-            height: 95vh;
+        #v, #f {
+            width: 48vw;
+            height: 45vh;
+            resize: vertical;
         }
 
         @media only screen and (max-width: 768px) {
@@ -72,7 +73,7 @@
             #c {
                 width: 95vw;
             }
-            #i {
+            #v, #f {
                 width: 95vw;
             }
         }
@@ -82,7 +83,10 @@
 <body>
     <div class="flex">
         <canvas id="c"></canvas>
-        <textarea id="i"></textarea>
+        <div>
+            <textarea id="v"></textarea>
+            <textarea id="f"></textarea>
+        </div>
         <script src="index.js"></script>
     </div>
 </body>
